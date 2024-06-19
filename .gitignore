@@ -33,3 +33,7 @@ config/master.key
 /public/packs-test
 /public/assets  # If not using Webpack or Sprockets
 /app/assets/builds/*  # Potential project-specific asset directory (optional)
+/app/assets/builds/*
+!/app/assets/builds/.keep
+
+/node_modules
