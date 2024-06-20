@@ -1,0 +1,53 @@
+<% provide(:title, 'Edit Task') %>
+
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <h2>Edit Task</h2>
+        </div>
+        <div class="card-body">
+          <%= form_with model: @task, local: true do |form| %>
+            <% if @task.errors.any? %>
+              <div id="error_explanation">
+                <h2><%= pluralize(@task.errors.count, "error") %> prohibited this task from being saved:</h2>
+                <ul>
+                  <% @task.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                  <% end %>
+                </ul>
+              </div>
+            <% end %>
+
+            <div class="form-group">
+              <%= form.label :title %>
+              <%= form.text_field :title, class: "form-control", placeholder: "Task Title" %>
+            </div>
+
+            <div class="form-group">
+              <%= form.label :description %>
+              <%= form.rich_text_area :description, class: "form-control", placeholder: "Task Description", rows: 4 %>
+            </div>
+
+            <div class="form-group">
+              <%= form.label :state %>
+              <%= form.select :state, Task.aasm.states.map { |state| [state.name.to_s.humanize, state.name] }, { prompt: "Select State" }, class: "form-control" %>
+            </div>
+
+            <div class="form-group">
+              <%= form.label :deadline %>
+              <%= form.datetime_field :deadline, class: "form-control", placeholder: "Select Deadline" %>
+            </div>
+
+            <div class="form-group">
+              <%= form.submit 'Update Task', class: "btn btn-primary btn-block smt-btn" %>
+            </div>
+          <% end %>
+
+          <%= link_to 'Back', root_path, class: "btn btn-secondary btn-block back-btn" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

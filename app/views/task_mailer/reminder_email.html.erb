@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+</head>
+<body>
+  <p>Hello <%= @task.user.email %>,</p>
+  <p>This is a reminder that your task "<%= @task.title %>" is due <%= @time_left %> from now.</p>
+  <p>Please complete it before the deadline.</p>
+</body>
+</html>

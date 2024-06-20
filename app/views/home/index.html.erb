@@ -1,0 +1,36 @@
+<p>Hello, <%= current_user.first_name %>! welcome to Task Management App</p>
+
+<div class="d-flex justify-content-between align-items-center">
+  <h3>Your Tasks</h3>
+  <%= link_to 'New Task', new_task_path, class: 'btn btn-primary' %>
+</div>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>State</th>
+      <th>Created At</th>
+      <th>Deadline</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @tasks.each do |task| %>
+      <tr>
+        <td><%= truncate(task.title, length: 6) %></td>
+        <td><%= truncate_rich_text(task.description, 6) %></td>
+        <td>
+          <span class="badge badge-pill <%= state_color_class(task.state) %> text-white"><%= task.state.humanize %></span>
+        </td>
+        <td><%= task.created_at.strftime("%B %d, %Y %H:%M") %></td>
+        <td><%= task.deadline.strftime("%B %d, %Y %H:%M") %></td>
+        <td>
+          <%= link_to 'View', task_path(task), class: 'btn btn-sm btn-secondary' %>
+          <%= link_to 'Edit', edit_task_path(task), class: 'btn btn-sm btn-primary' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

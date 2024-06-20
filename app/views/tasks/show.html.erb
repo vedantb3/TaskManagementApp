@@ -1,0 +1,32 @@
+<div class="container">
+  <div class="row justify-content-center mt-5">
+    <div class="col-md-8">
+      <div class="card shadow">
+        <div class="card-header text-black">
+          <h3 class="card-title mb-0"><%= @task.title %></h3>
+        </div>
+        <div class="card-body">
+          <p class="card-text"><%= @task.description %></p>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item"><strong>State:</strong>
+              <% state_color_class = case @task.state
+                                    when 'backlog'
+                                      'bg-danger'
+                                    when 'in_progress'
+                                      'bg-primary'
+                                    when 'done'
+                                      'bg-success'
+                                    end %>
+              <span class="badge badge-pill <%= state_color_class %> text-white"><%= @task.state.humanize %></span>
+            </li>
+            <li class="list-group-item"><strong>Deadline:</strong> <%= @task.deadline.strftime("%B %d, %Y %H:%M") %></li>
+          </ul>
+        </div>
+        <div class="card-footer text-right">
+          <%= link_to 'Edit', edit_task_path(@task), class: 'btn btn-outline-primary mr-2' %>
+          <%= link_to 'Back to Tasks', root_path, class: 'btn btn-secondary' %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
