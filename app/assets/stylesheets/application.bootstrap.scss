@@ -1,2 +1,81 @@
 @import 'bootstrap/scss/bootstrap';
 @import 'bootstrap-icons/font/bootstrap-icons';
+
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background-color: #333;
+  color: #fff;
+  padding: 10px 0;
+}
+
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: flex-end;
+}
+
+nav ul li {
+  margin: 0 10px;
+}
+
+nav ul li a {
+  color: #fff;
+  text-decoration: none;
+}
+
+nav ul li a:hover {
+  text-decoration: underline;
+}
+
+.container {
+  padding: 20px;
+}
+
+.notice, .alert {
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+.notice {
+  background-color: #dff0d8;
+  color: #3c763d;
+}
+
+.alert {
+  background-color: #f2dede;
+  color: #a94442;
+}
+
+
+
+form {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.field {
+  margin-bottom: 15px;
+}
+
+.field label {
+  display: block;
+  font-weight: bold;
+}
+
+.field input, .field textarea, .field select {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.actions {
+  text-align: center;
+}

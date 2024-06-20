@@ -1,0 +1,46 @@
+<h1>Welcome to Task Management</h1>
+
+<p>Hello, <%= current_user.email %>!</p>
+
+<div class="d-flex justify-content-between align-items-center">
+  <h3>Your Tasks</h3>
+  <%= link_to 'New Task', new_task_path, class: 'btn btn-primary' %>
+</div>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>State</th>
+      <th>Deadline</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @tasks.each do |task| %>
+      <tr>
+        <td><%= task.title %></td>
+        <td><%= task.description %></td>
+        <td>
+          <% state_color_class = case task.state
+            when 'backlog'
+              'bg-danger'
+            when 'in_progress'
+              'bg-primary'
+            when 'done'
+              'bg-success'
+            end %>
+          <span class="badge badge-pill <%= state_color_class %> text-white"><%= task.state.humanize %></span>
+        </td>
+        <td><%= task.deadline.strftime("%B %d, %Y %H:%M") %></td>
+        <td>
+          <%= link_to 'View', task_path(task), class: 'btn btn-sm btn-secondary' %>
+          <%= link_to 'Edit', edit_task_path(task), class: 'btn btn-sm btn-primary' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'New Task', new_task_path %>
