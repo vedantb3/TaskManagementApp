@@ -8,10 +8,10 @@
           <h2>Edit Task</h2>
         </div>
         <div class="card-body">
-          <%= form_with model: @task, local: true do |form| %>
+          <%= form_with model: @task, local: true, method: :patch, data: { turbo: false } do |form| %>
             <% if @task.errors.any? %>
               <div id="error_explanation">
-                <h2><%= pluralize(@task.errors.count, "error") %> prohibited this task from being saved:</h2>
+                <h5><%= pluralize(@task.errors.count, "error") %> prohibited this task from being saved:<h5>
                 <ul>
                   <% @task.errors.full_messages.each do |message| %>
                     <li><%= message %></li>
@@ -22,18 +22,18 @@
 
             <div class="form-group">
               <%= form.label :title %>
-              <%= form.text_field :title, class: "form-control", placeholder: "Task Title" %>
-            </div>
+              <%= form.text_field :title, autofocus: true, class: "form-control", placeholder: "Task Title" %>
+            </div><br>
 
             <div class="form-group">
               <%= form.label :description %>
               <%= form.rich_text_area :description, class: "form-control", placeholder: "Task Description", rows: 4 %>
-            </div>
+            </div><br>
 
             <div class="form-group">
               <%= form.label :state %>
-              <%= form.select :state, Task.aasm.states.map { |state| [state.name.to_s.humanize, state.name] }, { prompt: "Select State" }, class: "form-control" %>
-            </div>
+              <%= form.select :state, Task.states.keys.map { |state| [state.humanize, state] }, { prompt: "Select State" }, class: "form-control" %>
+            </div><br>
 
             <div class="form-group">
               <%= form.label :deadline %>
