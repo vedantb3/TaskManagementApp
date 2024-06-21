@@ -1,6 +1,4 @@
 class Task < ApplicationRecord
-  include AASM
-
   belongs_to :user
 
   after_save :schedule_reminders
@@ -11,30 +9,18 @@ class Task < ApplicationRecord
   validates :title, length: { maximum: 255 }
   validate :deadline_cannot_be_in_the_past
 
+  enum state: { backlog: 0, in_progress: 1, done: 2 }
+
   scope :order_by_custom_criteria, lambda {
     order(Arel.sql("
       CASE
-        WHEN state = 'backlog' AND deadline <= NOW() + INTERVAL '24 HOURS' THEN 1
-        WHEN state = 'in_progress' THEN 2
-        WHEN state = 'backlog' THEN 3
-        WHEN state = 'done' THEN 4
+        WHEN state = #{states[:backlog]} AND deadline <= NOW() + INTERVAL '24 HOURS' THEN 1
+        WHEN state = #{states[:in_progress]} THEN 2
+        WHEN state = #{states[:backlog]} THEN 3
+        WHEN state = #{states[:done]} THEN 4
       END, deadline ASC
     "))
   }
-
-  aasm column: 'state' do
-    state :backlog, initial: true
-    state :in_progress
-    state :done
-
-    event :start do
-      transitions from: :backlog, to: :in_progress
-    end
-
-    event :complete do
-      transitions from: :in_progress, to: :done
-    end
-  end
 
   def deadline_cannot_be_in_the_past
     return unless deadline.present? && deadline < Time.current

@@ -1,24 +1,37 @@
 # TaskManagementApp
+TaskManagementApp is a Ruby on Rails application designed for managing tasks and their deadlines.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+### Ruby Version
+ruby 3.0.0
 
-Things you may want to cover:
+### Rails Version
+rails 7.1.3
 
-* Ruby version
+### System Dependencies
+Ensure you have Node.js and Yarn installed. You can install them using Homebrew:
+brew install node
+brew install yarn
 
-* System dependencies
+### Configuration
 
-* Configuration
+git clone https://github.com/vedantb3/TaskManagementApp.git
+cd TaskManagementApp
+bundle install
+yarn install
 
-* Database creation
 
-* Database initialization
+### Database Setup
+TaskManagementApp uses PostgreSQL as the database. Ensure you have PostgreSQL installed and running locally.
 
-* How to run the test suite
+Create the database and run migrations:
 
-* Services (job queues, cache servers, search engines, etc.)
+- rails db:create
+- rails db:migrate
 
-* Deployment instructions
+### How to run the test suite
 
-* ...
+bundle exec rspec
+
+### How to start app server
+
+bundle exec rails s
